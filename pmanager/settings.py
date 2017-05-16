@@ -25,7 +25,7 @@ SECRET_KEY = 'bweqhw7n)^&o$_pu#!tya5h*77^3wlc-0@8rzg*nbmkg%3&9)a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pmanager.pythonanywhere.com']
 
 
 # Application definition

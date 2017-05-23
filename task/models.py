@@ -10,13 +10,14 @@ class Problem(models.Model):
 
 class ProblemModification(models.Model):
     name = models.CharField(max_length=200)
-    problem = models.ForeignKey(Problem)
+    problem = models.ForeignKey(Problem, related_name='modification')
     archive = models.ForeignKey(from_contest.Archive)
     prefix = models.CharField(max_length=200, blank=True)
     comment = models.TextField()
 
     def __str__(self):
         return self.name + ' --- мод. ' + str(self.problem)
+
 
 class AttachmentType(models.Model):
     name = models.CharField(max_length=200)

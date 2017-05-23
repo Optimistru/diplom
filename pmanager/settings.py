@@ -37,11 +37,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'solution',
     'contest',
     'task',
-    'solution',
     'users',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'pmanager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, BASE_DIR + '/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

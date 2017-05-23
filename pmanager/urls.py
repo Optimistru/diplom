@@ -7,6 +7,6 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'blog', include('blog.urls')),
-    url(r'contests', include('contest.urls')),
+    url(r'contest', include('contest.urls')),
+    url(r'task', include('task.urls')),
 ]

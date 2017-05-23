@@ -10,8 +10,12 @@ class AttachmentsInline(admin.StackedInline):
     model = Attachment
     extra = 0
 
+class ProblemModificationsInline(admin.StackedInline):
+    model = ProblemModification
+    extra = 0
+
 class ProblemAdmin(admin.ModelAdmin):
-    inlines = [AttachmentsInline]
+    inlines = [AttachmentsInline, ProblemModificationsInline]
 
 admin.site.register(Problem, ProblemAdmin)
 

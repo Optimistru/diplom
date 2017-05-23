@@ -1,7 +1,7 @@
 from django.db import models
 
 class ArchiveType(models.Model):
-    name = models.TextField()
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -14,5 +14,5 @@ class Archive(models.Model):
     finish_time = models.DateTimeField()
 
     def __str__(self):
-        return self.name + ' / ' + self.start_time.strftime('%d/%m/%Y %H:%M') + ' -- ' + self.finish_time.strftime('%d/%m/%Y %H:%M')
+        return self.name + ' / ' + self.start_time.strftime('%d/%m/%Y') + ' -- ' + self.finish_time.strftime('%d/%m/%Y')
 

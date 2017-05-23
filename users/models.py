@@ -2,15 +2,16 @@ from django.db import models
 from contest import models as from_contest
 
 class User(models.Model):
+    name = models.CharField(max_length=200)
     is_team = models.BooleanField()
-    name = models.TextField()
+
 
     def __str__(self):
         return self.name + ('', ' (Team)')[self.is_team == True]
 
 class TeamMember(models.Model):
-    user = models.ForeignKey(User)
-    team = models.ForeignKey(User)  #its not a bug
+    user = models.ForeignKey(User, related_name='which_user')
+    team = models.ForeignKey(User, related_name='in_what_team')  #its not a bug
 
 class ParticipationType(models.Model):
     name = models.CharField(max_length=200)

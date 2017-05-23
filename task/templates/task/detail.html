@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'task_list' %}" class=""><span class="glyphicon glyphicon-menu-left">Назад</span></a>
+    <br>
+    <h2>Задача (концепт) - {{ task.name }}</h2>
+    <h4>{{ task.description }}</h4>
+    Прецеденты использования / модификации:
+    <table class="table table-bordered">
+        {% for mod in task.modification.all %}
+            <tr>
+                <th>{{ mod.id }}</th>
+                <th>{{ mod.name }}</th>
+                <th>{{ mod.archive }}</th>
+                <th>{{ mod.comment }}</th>
+                <th><a href="{% url 'mod_task_edit' mod.id %}" class="">Изменить<span class="glyphicon glyphicon-menu-right"></span></a></th>
+                <th><a href="{% url 'mod_task_delete' mod.id %}" class="">Удалить<span class="glyphicon glyphicon-menu-right"></span></a></th>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}

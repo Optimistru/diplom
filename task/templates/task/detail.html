@@ -13,8 +13,8 @@
                 <th>{{ mod.name }}</th>
                 <th>{{ mod.archive }}</th>
                 <th>{{ mod.comment }}</th>
-                <th><a href="{% url 'mod_task_edit' mod.id %}" class="">Изменить<span class="glyphicon glyphicon-menu-right"></span></a></th>
-                <th><a href="{% url 'mod_task_delete' mod.id %}" class="">Удалить<span class="glyphicon glyphicon-menu-right"></span></a></th>
+                <th><a href="{% url 'mod_task_edit' mod.id %}?next={{ request.get_full_path|urlencode }}" class="">Изменить<span class="glyphicon glyphicon-menu-right"></span></a></th>
+                <th><a href="{% url 'mod_task_delete' mod.id %}?next={{ request.get_full_path|urlencode }}" class="">Удалить<span class="glyphicon glyphicon-menu-right"></span></a></th>
             </tr>
         {% endfor %}
     </table>

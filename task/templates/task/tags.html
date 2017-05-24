@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load index %}
+
+{% block content %}
+  <table class="table table-bordered">
+      <thead>
+      <td>Концепт (идея)</td>
+      <td>Модификация</td>
+        {% for tag in tg %}
+            <td>{{tag.name}}</td>
+        {% endfor %}
+      </thead>
+        <tbody>
+            {% for problem in pr %}
+                <tr>
+                    <td>{{problem.name}}</td>
+                    <td></td>
+                    {% for tag_weight in problems|index:problem.id %}
+                        {% if not forloop.first %}
+                            <td>{{tag_weight}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% for mod in problem.modification.all %}
+                    {% if mod.name != 'default' %}
+                        <tr>
+                            <td></td>
+                            <td>{{mod.name}}</td>
+                            {% for tag_weight in mods|index:mod.id %}
+                                {% if not forloop.first %}
+                                    <td>{{tag_weight}}</td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+            {% endfor %}
+        </tbody>
+  </table>
+{% endblock content %}

@@ -32,5 +32,18 @@ class Attachment(models.Model):
     contents = models.FileField() #is Binaryfield??
     comment = models.TextField()
 
+class Tag(models.Model):
+    name = models.CharField(max_length=200)
+    problem = models.ManyToManyField(Problem, through='TagProblem', blank=True)
+    problem_modification = models.ManyToManyField(ProblemModification, through='TagProblem', blank=True)
+
+    def __str__(self):
+        return self.name
+
+class TagProblem(models.Model):
+    tag = models.ForeignKey(Tag)
+    problem = models.ForeignKey(Problem)
+    problem_modification = models.ForeignKey(ProblemModification)
+    weight = models.IntegerField()
 
 

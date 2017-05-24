@@ -1,6 +1,6 @@
 from django import forms
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -49,17 +49,53 @@ class task_delete(generic.DeleteView):
     template_name = 'task/delete.html'
     success_url = reverse_lazy('task_list')
 
+class ProblemModificationForm(forms.ModelForm):
+     class Meta:
+         model = ProblemModification
+         fields = '__all__'
 
-class mod_task_edit(generic.UpdateView):
-    model = ProblemModification
-    template_name = 'task/mod_edit.html'
-    fields = '__all__'
+def mod_task_edit(request, pk):
+    post = get_object_or_404(ProblemModification, pk=pk)
+    if request.method == "POST":
+        form = ProblemModificationForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect(request.POST['next'], pk=post.pk)
+    else:
+        form = ProblemModificationForm(instance=post)
 
-    def form_valid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
+    return render(request, 'task/mod_edit.html', {'form': form, 'next': request.GET['next']})
 
 
-class mod_task_delete(generic.DeleteView):
-    model = ProblemModification
-    template_name = 'task/mod_delete.html'
+def mod_task_delete(request, pk):
+    post = get_object_or_404(ProblemModification, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect(request.POST['next'], pk=post.pk)
+    else:
+        form = ProblemModificationForm(instance=post)
 
+    return render(request, 'task/mod_delete.html', {'post': post, 'next': request.GET['next']})
+
+def tags(request):
+    obj = TagProblem.objects.all()
+    pr = Problem.objects.all()
+    tg = Tag.objects.all()
+
+    tw = len(Tag.objects.all()) + 1
+    problems = []
+    for i in range(1, 10):
+        problems.append([0] * tw)
+
+    problem_mods = []
+    for i in range(1, 10):
+        problem_mods.append([0] * tw)
+
+    for ob in obj:
+        if ob.problem_modification.name == 'default':
+            problems[ob.problem.id][ob.tag.id] = ob.weight
+        else:
+            problem_mods[ob.problem_modification.id][ob.tag.id] = ob.weight
+
+    return render(request, 'task/tags.html', {'problems': problems, 'mods': problem_mods, 'pr': pr, 'tg': tg})

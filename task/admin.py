@@ -1,11 +1,12 @@
 from django.contrib import admin
 from .models import *
 
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
+
 admin.site.register(Tag)
 
 admin.site.register(AttachmentType)
-
-# admin.site.register(Attachment)
 
 
 class AttachmentsInline(admin.StackedInline):
@@ -30,6 +31,17 @@ class ProblemModificationAdmin(admin.ModelAdmin):
 
 admin.site.register(ProblemModification, ProblemModificationAdmin)
 
+class CompanyInline(admin.StackedInline):
+    model = Company
+    verbose_name_plural = 'компании'
+    verbose_name = 'Компания'
 
+# Define a new User admin
+class UserAdmin(BaseUserAdmin):
+    inlines = (CompanyInline, )
+
+# Re-register UserAdmin
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 

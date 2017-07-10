@@ -9,18 +9,13 @@ class solution_list(generic.ListView):
     context_object_name = 'solution'
 
     def get_queryset(self):
-        """Return all solutions sort by rev time"""
+        """Возвращает все решения отсортированные по убыванию времени отправки"""
         return Solution.objects.order_by('-time')
 
 
 class solution_details(generic.DetailView):
     model = Solution
     template_name = 'solutions/detail.html'
-
-
-# class solution_edit(generic.DetailView):
-#     model = Solution
-#     template_name = 'solutions/edit.html'
 
 
 def solution_delete(request, solution_id):

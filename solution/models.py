@@ -20,7 +20,7 @@ class Solution(models.Model):
     verdict = models.ForeignKey(SolutionVerdict)
     show_in_standings = models.BooleanField()
     language = models.ForeignKey(SolutionLanguage)
-    code = models.FileField() #or BinaryField()?
+    code = models.FileField() #or BinaryField()
     time = models.DateTimeField()
     comment = models.TextField(blank=True)
 

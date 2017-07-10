@@ -7,7 +7,7 @@ class user_list(generic.ListView):
     context_object_name = 'user_list'
 
     def get_queryset(self):
-        """Return all users sort by name"""
+        """Возвращает всех пользователей, отсортированных по имени"""
         return User.objects.order_by('name')
 
 

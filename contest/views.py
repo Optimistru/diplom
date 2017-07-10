@@ -9,7 +9,7 @@ class contest_list(generic.ListView):
     context_object_name = 'contest_list'
 
     def get_queryset(self):
-        """Return all contests sort by name"""
+        """Возвращает все архивы, отсортированные по имени"""
         return Archive.objects.order_by('name')
 
 

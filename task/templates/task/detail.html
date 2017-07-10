@@ -8,14 +8,16 @@
     Прецеденты использования / модификации:
     <table class="table table-bordered">
         {% for mod in task.modification.all %}
+
             <tr>
                 <th>{{ mod.id }}</th>
                 <th>{{ mod.name }}</th>
-                <th>{{ mod.archive }}</th>
                 <th>{{ mod.comment }}</th>
+                <th><a href="{% url 'mod_task_copy' mod.id %}?next={{ request.get_full_path|urlencode }}" class="">Скопировать и редактировать<span class="glyphicon glyphicon-menu-right"></span></a></th>
                 <th><a href="{% url 'mod_task_edit' mod.id %}?next={{ request.get_full_path|urlencode }}" class="">Изменить<span class="glyphicon glyphicon-menu-right"></span></a></th>
                 <th><a href="{% url 'mod_task_delete' mod.id %}?next={{ request.get_full_path|urlencode }}" class="">Удалить<span class="glyphicon glyphicon-menu-right"></span></a></th>
             </tr>
+
         {% endfor %}
     </table>
 {% endblock content %}

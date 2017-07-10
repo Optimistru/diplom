@@ -3,10 +3,11 @@
 {% load index %}
 
 {% block content %}
-  <table class="table table-bordered">
+  <table class="table table-bordered table-striped">
       <thead>
       <td>Концепт (идея)</td>
       <td>Модификация</td>
+      <td>Описание</td>
         {% for tag in tg %}
             <td>{{tag.name}}</td>
         {% endfor %}
@@ -16,10 +17,9 @@
                 <tr>
                     <td>{{problem.name}}</td>
                     <td></td>
+                    <td>{{problem.description}}</td>
                     {% for tag_weight in problems|index:problem.id %}
-                        {% if not forloop.first %}
-                            <td>{{tag_weight}}</td>
-                        {% endif %}
+                        <td>{% if tag_weight != 0 %}{{tag_weight}}{% endif %}</td>
                     {% endfor %}
                 </tr>
                 {% for mod in problem.modification.all %}
@@ -27,10 +27,9 @@
                         <tr>
                             <td></td>
                             <td>{{mod.name}}</td>
+                            <td>{{mod.comment}}</td>
                             {% for tag_weight in mods|index:mod.id %}
-                                {% if not forloop.first %}
-                                    <td>{{tag_weight}}</td>
-                                {% endif %}
+                                <td>{% if tag_weight != 0 %}{{tag_weight}}{% endif %}</td>
                             {% endfor %}
                         </tr>
                     {% endif %}

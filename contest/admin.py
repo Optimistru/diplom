@@ -4,9 +4,9 @@ from task.models import *
 
 
 
-class ProblemsInline(admin.StackedInline):
-    model = ProblemModification #or Problem?
-    extra = 0
+class ProblemsInline(admin.TabularInline):
+    model = ProblemModification.archives.through #многие-ко-многим с ProblemModification
+    verbose_name = "ProblemModification"
 
 class ArchiveAdmin(admin.ModelAdmin):
     inlines = [ProblemsInline]
